@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { SocketProvider } from "@hilma/socket.io-react";
+import { SocketProvider } from '@hilma/socket.io-react';
 
-ReactDOM.render(
+const rootElement = document.getElementById('root');
+
+const Root = (
     <SocketProvider uri="localhost:8080">
         <App />
-    </SocketProvider>,
-    document.getElementById('root')
+    </SocketProvider>
 );
+
+ReactDOM.render(Root, rootElement);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

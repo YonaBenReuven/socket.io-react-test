@@ -1,12 +1,9 @@
-const { genericIOServer } = require('@hilma/socket.io-react/server');
+const socketio = require('@hilma/socket.io-server').default;
 
-const io = require('socket.io')(8080);
-
-genericIOServer(io);
+const io = socketio(8080);
 
 io.on('connection', socket => {
-    socket.on('some-event', number => {
-        console.log("hello?")
-        socket.broadcast.emit('some-event', number);
-    })
+    socket.on('send-message', (chatId, message) => {
+        io.to(chatId).emit('send-message', message);
+    });
 });

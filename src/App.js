@@ -1,18 +1,23 @@
-import React, { useEffect } from 'react';
-import { useStateSocket } from '@hilma/socket.io-react';
+import React from 'react';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { Chat } from './components';
 
 const App = () => {
-    const [number, , setNumberEmit] = useStateSocket('some-event', 0);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setNumberEmit(Math.random());
-        }, 2000);
-    }, []);
 
     return (
-        <div>{number}</div>
+        <BrowserRouter>
+            {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,].map((_, index) => (
+                <Link key={index} to={`/chat/${index}`}>
+                    <button>
+                        chat {index}
+                    </button>
+                </Link>
+            ))}
+            <Switch>
+                <Route component={Chat} path="/chat/:chatId" />
+            </Switch>
+        </BrowserRouter>
     );
-}
+};
 
 export default App;
